@@ -20,6 +20,7 @@
     "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.2",
     "vue2-transitions": "^0.2.3",
+    "vuedraggable": "^2.24.3",
     "watch-run": "^1.2.5"
   },
   "devDependencies": {

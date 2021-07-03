@@ -16,6 +16,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,21 +41,19 @@ public class AuthController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @PostMapping("/signin")
     public ResponseEntity<?> signIn(@RequestBody AuthRequest authRequest){
         System.out.println(authRequest.getUsername()+" "+authRequest.getPassword());
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(),authRequest.getPassword()));
-            System.out.println("this line here1 !!!");
         } catch (BadCredentialsException e) {
-            System.out.println("this line here2 !!!");
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        System.out.println("this line here !!!");
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getUsername());
-        System.out.println("userDetails: "+ userDetails);
         final String jwt = jwtUtil.generateToken(userDetails);
-        System.out.println("jwt: "+jwt);
         return ResponseEntity.ok(new AuthResponse(jwt));
     }
 
@@ -62,7 +61,7 @@ public class AuthController {
     public ResponseEntity<?> register(@RequestBody AuthRequest regRequest){
         System.out.println(regRequest.getUsername()+" "+regRequest.getPassword());
         try {
-            userRepository.save(new User(regRequest.getUsername(),regRequest.getPassword()));
+            userRepository.save(new User(regRequest.getUsername(),passwordEncoder.encode(regRequest.getPassword())));
         } catch (DataIntegrityViolationException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }

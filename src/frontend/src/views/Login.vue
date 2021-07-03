@@ -95,7 +95,9 @@ export default {
                 .post('api/auth/signin',data,headers)
                 .then(response => {
                     if(response.status === 200) this.$router.push("/dashboard");
-                    else if(response.status === 400) this.wrongCreds = true;
+                })
+                .catch(error => {
+                    this.wrongCreds = true;
                 });
         }
     },

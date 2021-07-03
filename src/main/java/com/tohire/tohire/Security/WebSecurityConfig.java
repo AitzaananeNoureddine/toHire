@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -33,15 +33,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.httpBasic().disable()
-            .formLogin().disable()
-            .cors().and().csrf().disable()
+            // .formLogin().disable()
+            // .cors().and().csrf().disable()
             .authorizeRequests()
-                    .antMatchers("/r1").hasRole("r1")
-                    .antMatchers("/r2").hasAnyRole("ADMIN", "USER")
-                    .antMatchers("/").permitAll()
-                    .antMatchers("/api/auth/signin").permitAll()
-                    .antMatchers("/api/auth/signup").permitAll()
-                    .anyRequest().authenticated()
+                    // .antMatchers("/r1").hasRole("r1")
+                    // .antMatchers("/r2").hasAnyRole("ADMIN", "USER")
+                    // .antMatchers("/").permitAll()
+                    // .antMatchers("/api/auth/signin").permitAll()
+                    // .antMatchers("/api/auth/signup").permitAll()
+                    // .anyRequest().authenticated()
+                    .anyRequest().permitAll()
                     .and().sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter,UsernamePasswordAuthenticationFilter.class);
@@ -55,7 +56,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Bean
     public PasswordEncoder getPasswordEncoder() {
-        return NoOpPasswordEncoder.getInstance(); /// only during dev
+        // return NoOpPasswordEncoder.getInstance(); /// only during dev
+        return new BCryptPasswordEncoder();
     }
 
 }

@@ -101,11 +101,11 @@ export default {
                         .post('api/auth/signup',data,headers)
                         .then(response => {
                             if(response.status === 200) this.$router.push("/dashboard");
-                            else if(response.status === 400){
-                                this.invalidEmail = true;
-                                this.msg = 'Email already in use';
-                            }
                         })
+                        .catch(error => {
+                            this.invalidEmail = true;
+                            this.msg = 'Email already in use';
+                        });
                 }
             }
         }

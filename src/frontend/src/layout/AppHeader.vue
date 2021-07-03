@@ -27,7 +27,7 @@
                 </router-link>
                 <router-link to="/about" slot="title" class="nav-link" data-toggle="dropdown" role="button">
                     <i class="ni ni-collection d-lg-none"></i>
-                    <span class="nav-link-inner--text">About</span>
+                    <span class="nav-link-inner--text">About Us</span>
                 </router-link>
                 <router-link to="/contact" slot="title" class="nav-link" data-toggle="dropdown" role="button">
                     <i class="ni ni-collection d-lg-none"></i>
@@ -80,5 +80,9 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
+    .navbar{
+        position: fixed;
+        background: #051024;
+    }
 </style>
