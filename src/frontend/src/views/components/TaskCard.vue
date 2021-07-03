@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow px-5 pt-3 pb-5 taskCardBg">
+  <div class="shadow px-5 pt-3 pb-5 taskCardBg rounded">
     <div class="flex justify-between">
       <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">{{task.title}}</p>
 
@@ -43,6 +43,6 @@ export default {
 </script>
 <style scoped>
     .taskCardBg{
-        background: #f4f5f7;
+        background: #C3D0E9;
     }
 </style>

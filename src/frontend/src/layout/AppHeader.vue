@@ -18,19 +18,15 @@
 
             <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
                 <router-link to="/login" slot="title" class="nav-link" data-toggle="dropdown" role="button">
-                    <i class="ni ni-collection d-lg-none"></i>
                     <span class="nav-link-inner--text">Login</span>
                 </router-link>
                 <router-link to="/register" slot="title" class="nav-link" data-toggle="dropdown" role="button">
-                    <i class="ni ni-collection d-lg-none"></i>
                     <span class="nav-link-inner--text">Register</span>
                 </router-link>
                 <router-link to="/about" slot="title" class="nav-link" data-toggle="dropdown" role="button">
-                    <i class="ni ni-collection d-lg-none"></i>
                     <span class="nav-link-inner--text">About Us</span>
                 </router-link>
                 <router-link to="/contact" slot="title" class="nav-link" data-toggle="dropdown" role="button">
-                    <i class="ni ni-collection d-lg-none"></i>
                     <span class="nav-link-inner--text">Contact</span>
                 </router-link>
             </ul>

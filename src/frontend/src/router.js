@@ -8,6 +8,9 @@ import Login from "./views/Login.vue";
 import Register from "./views/Register.vue";
 import Profile from "./views/Profile.vue";
 import Dashboard from "./views/Dashboard.vue";
+import Contact from "./views/Contact.vue";
+import About from "./views/About.vue";
+import Project from "./views/Project.vue";
 
 Vue.use(Router);
 
@@ -64,6 +67,33 @@ export default new Router({
             components: {
                 header: AppHeader,
                 default: Profile,
+                footer: AppFooter
+            }
+        },
+        {
+            path: "/contact",
+            name: "contact",
+            components: {
+                header: AppHeader,
+                default: Contact,
+                footer: AppFooter
+            }
+        },
+        {
+            path: "/about",
+            name: "about",
+            components: {
+                header: AppHeader,
+                default: About,
+                footer: AppFooter
+            }
+        },
+        {
+            path: "/dashboard/project",
+            name: "project",
+            components: {
+                header: AppHeader,
+                default: Project,
                 footer: AppFooter
             }
         }
