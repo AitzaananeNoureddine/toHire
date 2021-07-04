@@ -20,8 +20,10 @@ import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import Argon from "./plugins/argon-kit";
-import './registerServiceWorker'
+import './registerServiceWorker';
+import CoreuiVue from '@coreui/vue';
 Vue.config.productionTip = false;
+Vue.use(CoreuiVue);
 Vue.use(Argon);
 new Vue({
     router,
