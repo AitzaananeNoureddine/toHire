@@ -2,10 +2,15 @@ package com.tohire.tohire.Models;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class Task {
@@ -18,9 +23,14 @@ public class Task {
     private String status;
     private String tagName;
     private String tagColor;
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private Project project;
     
+    public Task(){}
+
     public Task(int id, String title, String description, Date start, Date dueOn, String status, String tagName,
-            String tagColor) {
+            String tagColor, Project project) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -29,6 +39,7 @@ public class Task {
         this.status = status;
         this.tagName = tagName;
         this.tagColor = tagColor;
+        this.project = project;
     }
 
     public int getId() {
@@ -94,5 +105,15 @@ public class Task {
     public void setTagColor(String tagColor) {
         this.tagColor = tagColor;
     }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    
 
 }

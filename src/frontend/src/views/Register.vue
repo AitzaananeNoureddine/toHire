@@ -90,7 +90,10 @@ export default {
                     axios
                         .post('api/auth/signup',data,headers)
                         .then(response => {
-                            if(response.status === 200) this.$router.push("/dashboard");
+                            if(response.status === 200){
+                                this.$cookies.set('jwt',response.data.jwt);
+                                this.$router.push("/dashboard");
+                            }
                         })
                         .catch(error => {
                             this.invalidEmail = true;

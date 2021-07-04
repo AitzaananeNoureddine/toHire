@@ -1,17 +1,17 @@
 <template>
   <div class="shadow px-5 pt-3 pb-5 taskCardBg rounded">
     <div class="flex justify-between">
-      <p class="text-gray-700 font-semibold font-sans tracking-wide text-sm">{{task.title}}</p>
+      <p class="font-semibold font-sans tracking-wide text-sm wht">{{task.title}}</p>
 
       <img
         class="w-6 h-6 rounded-full ml-3"
-        src="https://pickaface.net/gallery/avatar/unr_sample_161118_2054_ynlrg.png"
+        src="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
         alt="Avatar"
       >
     </div>
     <div class="flex mt-4 justify-between items-center">
-      <span class="text-sm text-gray-600">{{task.date}}</span>
-      <tag v-if="task.type" :color="tagColor">{{task.type}}</tag>
+      <span class="text-sm text-600 wht">{{task.dueOn}}</span>
+      <tag v-if="task.tagName" :color="task.tagColor">{{task.tagName}}</tag>
     </div>
   </div>
 </template>
@@ -22,27 +22,21 @@ export default {
     Tag
   },
   props: {
-    task: {
-      type: Object,
-      default: () => ({})
-    }
+    task: {},
   },
-  computed: {
-    tagColor() {
-      const mappings = {
-        Design: "purple",
-        "Feature Request": "teal",
-        Backend: "blue",
-        QA: "green",
-        default: "teal"
-      };
-      return mappings[this.task.type] || mappings.default;
-    }
-  }
+  created() {
+    const dueOn = new Date(this.task.dueOn);
+    this.task.dueOn = dueOn.toDateString();
+  },
 };
 </script>
 <style scoped>
     .taskCardBg{
-        background: #C3D0E9;
+        /* background: #172b4d; */
+        background: #7898CE;
+    }
+    .wht{
+      color: white !important;
     }
 </style>
+

@@ -1,15 +1,6 @@
 <template>
-  <section class="section section-shaped section-lg my-0">
-    <div class="shape shape-style-1 bg-gradient-default">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
+  <section class="section-shaped section-lg my-0">
+    <div class="btn btn-flickr recruitB"><i class="fa fa-users" aria-hidden="true"></i>  Recruit</div>
     <div class="flex justify-center">
       <div class="min-h-screen flex overflow-x-scroll py-12">
         <div
@@ -17,10 +8,10 @@
           :key="column.title"
           class="bg-gray-100 px-3 py-3 column-width mr-4 entry rounded"
         >
-          <p class="cardTitle font-semibold font-sans tracking-wide text-sm">{{column.title}}</p>
-          <draggable :list="column.tasks" :animation="200" ghost-class="ghost-card" group="tasks">
+          <p class="cardTitle font-semibold font-sans tracking-wide text-sm">{{column.title.toUpperCase()}}</p>
+          <draggable :list="tasks" :animation="200" ghost-class="ghost-card" group="tasks">
             <task-card
-              v-for="(task) in column.tasks"
+              v-for="(task) in tasks.filter((task)=>task.status===column.title)"
               :key="task.id"
               :task="task"
               class="mt-3 cursor-move"
@@ -41,57 +32,17 @@ export default {
     TaskCard,
     draggable
   },
+  data() {
+    return {
+      tasks:[],
+    }
+  },
   created() {
-    console.log(this.$route.params.projectId);
+    this.tasks = this.$route.params.project.tasks
   },
   data() {
     return {
-      columns: [
-        {
-          title: "Backlog",
-          tasks: [
-            {
-              id: 1,
-              title: "Add discount code to checkout page",
-              date: "Sep 14",
-              type: "Feature Request"
-            },
-          ]
-        },
-        {
-          title: "In Progress",
-          tasks: [
-            {
-              id: 6,
-              title: "Design shopping cart dropdown",
-              date: "Sep 9",
-              type: "Design"
-            },
-          ]
-        },
-        {
-          title: "Review",
-          tasks: [
-            {
-              id: 9,
-              title: "Provide documentation on integrations",
-              date: "Sep 12",
-              type: "App"
-            },
-          ]
-        },
-        {
-          title: "Done",
-          tasks: [
-            {
-              id: 14,
-              title: "Add discount code to checkout page",
-              date: "Sep 14",
-              type: "Feature Request"
-            },
-          ]
-        }
-      ]
+      columns: [{title: "backlog",},{title: "inProgress",},{title: "review",},{title: "done",}],
     };
   }
 };
@@ -101,9 +52,6 @@ export default {
 .column-width {
   min-width: 320px;
   width: 320px;
-}
-.section{
-  background: #172b4d;
 }
 .ghost-card {
   opacity: 0.5;
@@ -123,6 +71,9 @@ export default {
   border: solid 2px #051024;
 }
 .cardTitle{
-  color: white;
+  color: #051024;
+}
+.recruitB{
+  margin: 10px 0px 0px 15px;
 }
 </style>

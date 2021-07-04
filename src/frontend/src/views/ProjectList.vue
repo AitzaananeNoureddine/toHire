@@ -11,7 +11,7 @@
             </div>
 
             <table width="100%">
-                <tr v-for="project in projects" :key="project.id" @click="fetchProjectTasks(project.id)">
+                <tr v-for="project in projects" :key="project.id" @click="fetchProjectTasks(project)">
                 <td>{{project.title}}</td>
                 <td align="center">due on: {{project.dueOn}}</td>
                 <td><input type="checkbox" id="checkbox1-1" class="regular-checkbox" /></td>
@@ -52,9 +52,9 @@ export default {
           });
     },
     methods: {
-      fetchProjectTasks(id){
-        this.$router.push({name: 'project',params: {projectId:id}});
-        console.log("project id:"+id);
+      fetchProjectTasks(project){
+        this.$router.push({name: 'project',params: {project:project}});
+        console.log("project id:");
       }
     },
 };
@@ -84,6 +84,7 @@ body {
 }
 
 .top h2 {
+  color: #051024 !important;
   font-size: 24px;
   margin: 0 0 40px 0;
 }
@@ -117,11 +118,11 @@ table tr:hover {
 }
 
 table tr:hover td {
-  border-bottom: 2px solid #321fdb;
+  border-bottom: 2px solid #051024;
 }
 
 table tr:hover td:first-child {
-  border-left: 8px solid #321fdb;
+  border-left: 8px solid #051024;
 }
 
 table tr td:first-child {
