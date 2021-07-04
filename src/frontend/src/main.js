@@ -22,8 +22,10 @@ import router from "./router";
 import Argon from "./plugins/argon-kit";
 import './registerServiceWorker';
 import CoreuiVue from '@coreui/vue';
+import VueCookies from 'vue-cookies'
 Vue.config.productionTip = false;
 Vue.use(CoreuiVue);
+Vue.use(VueCookies);
 Vue.use(Argon);
 new Vue({
     router,

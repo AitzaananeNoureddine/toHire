@@ -11,21 +11,9 @@
             </div>
 
             <table width="100%">
-                <tr>
-                <td>project1</td>
-                <td align="center">due on: 12/10/2021</td>
-                <td><input type="checkbox" id="checkbox1-1" class="regular-checkbox" /></td>
-                </tr>
-
-                <tr>
-                <td>project2</td>
-                <td align="center">due on: 12/10/2021</td>
-                <td><input type="checkbox" id="checkbox1-1" class="regular-checkbox" /></td>
-                </tr>
-
-                <tr>
-                <td>project3</td>
-                <td align="center">due on: 12/10/2021</td>
+                <tr v-for="project in projects" :key="project.id" @click="fetchProjectTasks(project.id)">
+                <td>{{project.title}}</td>
+                <td align="center">due on: {{project.dueOn}}</td>
                 <td><input type="checkbox" id="checkbox1-1" class="regular-checkbox" /></td>
                 </tr>
             </table>
@@ -41,8 +29,34 @@
         </section>
 </template>
 <script>
+import axios from 'axios';
 export default {
     name: 'ProjectList',
+    data() {
+      return {
+        projects: [],
+      }
+    },
+    created() {
+      axios
+          .get('http://localhost:8080/api/project',{
+            headers: {
+              Authorization: `Bearer ${this.$cookies.get('jwt')}`,
+            }
+          })
+          .then(response => {
+              this.projects = response.data;
+          })
+          .catch(error => {
+              console.log(error);
+          });
+    },
+    methods: {
+      fetchProjectTasks(id){
+        this.$router.push({name: 'project',params: {projectId:id}});
+        console.log("project id:"+id);
+      }
+    },
 };
 </script>
 <style scoped>

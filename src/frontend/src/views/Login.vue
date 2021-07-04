@@ -84,7 +84,10 @@ export default {
             axios
                 .post('api/auth/signin',data,headers)
                 .then(response => {
-                    if(response.status === 200) this.$router.push("/dashboard");
+                    if(response.status === 200){
+                        this.$cookies.set('jwt',response.data.jwt);
+                        this.$router.push("/dashboard");
+                    }
                 })
                 .catch(error => {
                     this.wrongCreds = true;

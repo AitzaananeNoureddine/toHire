@@ -41,6 +41,9 @@ export default {
     TaskCard,
     draggable
   },
+  created() {
+    console.log(this.$route.params.projectId);
+  },
   data() {
     return {
       columns: [

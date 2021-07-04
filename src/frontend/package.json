@@ -22,6 +22,7 @@
         "reload": "^3.2.0",
         "vue": "^2.6.6",
         "vue-axios": "^3.2.4",
+        "vue-cookies": "^1.7.4",
         "vue-flatpickr-component": "^8.1.6",
         "vue-lazyload": "^1.2.6",
         "vue-router": "^3.0.2",

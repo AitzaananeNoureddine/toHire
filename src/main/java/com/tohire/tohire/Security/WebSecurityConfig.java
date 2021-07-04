@@ -31,18 +31,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable();
         http.httpBasic().disable()
-            // .formLogin().disable()
-            // .cors().and().csrf().disable()
+            .formLogin().disable()
+            .cors().and().csrf().disable()
             .authorizeRequests()
                     // .antMatchers("/r1").hasRole("r1")
                     // .antMatchers("/r2").hasAnyRole("ADMIN", "USER")
                     // .antMatchers("/").permitAll()
-                    // .antMatchers("/api/auth/signin").permitAll()
-                    // .antMatchers("/api/auth/signup").permitAll()
-                    // .anyRequest().authenticated()
-                    .anyRequest().permitAll()
+                    .antMatchers("/api/auth/signin").permitAll()
+                    .antMatchers("/api/auth/signup").permitAll()
+                    .anyRequest().authenticated()
+                    // .anyRequest().permitAll()
                     .and().sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.addFilterBefore(jwtRequestFilter,UsernamePasswordAuthenticationFilter.class);
