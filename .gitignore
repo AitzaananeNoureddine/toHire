@@ -34,3 +34,4 @@ build/
 
 ### App properties ###
 src/main/resources/application.properties
+src/frontend/.env

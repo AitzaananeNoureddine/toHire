@@ -1,6 +1,6 @@
 <template>
   <section class="section-shaped section-lg my-0">
-    <div class="btn btn-flickr recruitB"><i class="fa fa-users" aria-hidden="true"></i>  Recruit</div>
+    <div class="btn btn-flickr recruitB" @click="jobPost"><i class="fa fa-users" aria-hidden="true"></i>  Recruit</div>
     <div class="flex justify-center">
       <div class="min-h-screen flex overflow-x-scroll py-12">
         <div
@@ -26,25 +26,71 @@
 <script>
 import draggable from "vuedraggable";
 import TaskCard from "./components/TaskCard.vue";
+import axios from "axios";
 export default {
   name: "Project",
   components: {
     TaskCard,
     draggable
   },
-  data() {
-    return {
-      tasks:[],
-    }
-  },
   created() {
-    this.tasks = this.$route.params.project.tasks
+    axios
+        .get('http://localhost:8080/api/task',{
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get('jwt')}`,
+          }
+        })
+        .then(response => {
+            console.log(response.data);
+            this.tasks = response.data;
+            console.log("this.tasks"+this.tasks.length);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
+    this.token = new URL(location.href).searchParams.get('token');
+    this.$cookies.set("linkedin_token",this.token);
+    console.log("linkedin_token: "+this.$cookies.get('linkedin_token'));
+    axios
+        .get('https://api.linkedin.com/v2/me',{
+          headers: {
+            Authorization: `Bearer ${this.$cookies.get('linkedin_token')}`,
+            'cache-control': 'no-cache',
+            'Access-Control-Allow-Origin':'*'
+          }
+        })
+        .then(response => {
+            console.log("user_id_response: "+response);
+        })
+        .catch(error => {
+            console.log(error);
+        });
+
   },
   data() {
     return {
       columns: [{title: "backlog",},{title: "inProgress",},{title: "review",},{title: "done",}],
+      tasks: [],
+      token:'',
     };
-  }
+  },
+  methods: {
+    jobPost(){
+      console.log("new job post");
+      console.log(process.env.VUE_APP_LINKEDIN_CLIENT_ID);
+      window.location.href = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.VUE_APP_LINKEDIN_CLIENT_ID}&redirect_uri=${process.env.VUE_APP_REDIRECT_URI}&scope=${process.env.VUE_APP_LINKEDIN_SCOPES}`;
+      // const headers = { 'content-type': 'application/json' };
+      // axios
+      //     .get(`https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${process.env.VUE_APP_LINKEDIN_CLIENT_ID}&redirect_uri=${process.env.VUE_APP_REDIRECT_URI}&scope=${process.env.VUE_APP_LINKEDIN_SCOPES}`)
+      //     .then(response => {
+      //       console.log(response);
+      //     })
+      //     .catch(error => {
+      //         console.log(error);
+      //     });
+    }
+  },
 };
 </script>
 

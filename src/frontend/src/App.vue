@@ -15,6 +15,10 @@ import { FadeTransition } from "vue2-transitions";
 export default {
   components: {
     FadeTransition
-  }
+  },
+  created() {
+    this.params = this.$route.params;
+    console.log("Code: "+this.params.code);
+  },
 };
 </script>

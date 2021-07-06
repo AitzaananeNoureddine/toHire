@@ -16,6 +16,7 @@ Vue.use(Router);
 
 export default new Router({
     linkExactActiveClass: "active",
+    mode: 'history',
     routes: [{
             path: "/",
             name: "components",
@@ -96,7 +97,16 @@ export default new Router({
                 default: Project,
                 footer: AppFooter
             }
-        }
+        },
+        {
+            path: "/dashboard/project/:token",
+            name: "project",
+            components: {
+                header: AppHeader,
+                default: Project,
+                footer: AppFooter
+            }
+        },
     ],
     scrollBehavior: to => {
         if (to.hash) {
